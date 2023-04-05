@@ -36,8 +36,17 @@ function onFormData(e) {
 }
 
 function onSubmitForm(e) {
-  console.log(JSON.parse(localStorage.getItem(FORM_STATE)));
   e.preventDefault();
+
+  for (const elem of [...e.currentTarget.elements]) {
+    if ((elem.nodeName === 'INPUT' || elem.nodeName === 'TEXTAREA') && elem.value === '') {
+      alert('Необходимо заполнить все поля');
+      return;
+    }
+  }
+
+  console.log(JSON.parse(localStorage.getItem(FORM_STATE)));
+
   e.currentTarget.reset();
   localStorage.removeItem(FORM_STATE);
 }
@@ -51,3 +60,4 @@ function onSubmitForm(e) {
     message.value = data.message;
   }
 })();
+
